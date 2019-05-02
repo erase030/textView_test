@@ -8,32 +8,34 @@
 
 import UIKit
 
-class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
-    }
-    
+class ViewController: UIViewController,UITableViewDataSource  {
 
+    
     @IBOutlet weak var tv: UITableView!
+    var count = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        tv.dataSource = self
+    }
+    
+    //UITableViewDataSource 메소드
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return 30
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RE", for: indexPath)
+        let row = indexPath.row
+        let sec = indexPath.section
         
+        cell.textLabel?.text = "Section" + String(sec)
+        cell.detailTextLabel?.text = "Row" + String(row)
+        
+        count = count + 1
+        print("cell...")
+        
+        return cell
     }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "section \(section+1)"
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    
 }
